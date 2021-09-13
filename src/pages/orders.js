@@ -21,7 +21,8 @@ function Orders({orders}) {
                  )}
 
                  <div className="mt-5 space-y-4">
-                     {orders?.map(({id, amount, amountShipping, items ,timestamp,images}) => (
+                     {orders?.map(
+                         ({id, amount, amountShipping, items ,timestamp,images}) => (
                          <Order 
                              key={id}
                              id={id}
@@ -38,7 +39,7 @@ function Orders({orders}) {
     )
 }
 
-export default Orders
+export default Orders;
 
 export async function getServerSideProps(context){
     const stripe = require ('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -52,7 +53,8 @@ export async function getServerSideProps(context){
         }
     }
 //firebase db
-    const stripeOrders = await db.collection('user')
+    const stripeOrders = await db
+    .collection('user')
     .doc(session.user.email)
     .collection('orders')
     .orderBy('timestamp','desc')
