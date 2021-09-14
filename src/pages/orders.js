@@ -15,7 +15,7 @@ function Orders({orders}) {
                  <h1 className="text-3xl border-b mb-2 pb-1 border-yellow-400">Your Orders</h1>
 
                  {session ? (
-                     <h2>{orders?.length} Orders </h2>
+                     <h2>{orders?.length} orders </h2>
                  ):(
                      <h2>Please sign in to see your orders</h2>
                  )}
@@ -42,19 +42,19 @@ function Orders({orders}) {
 export default Orders;
 
 export async function getServerSideProps(context){
-    const stripe = require ('stripe')(process.env.STRIPE_SECRET_KEY);
+    const stripe = require ("stripe")(process.env.STRIPE_SECRET_KEY);
 
     //get user loggined in credentials...
     const session = await getSession(context);
 
-    if(!session){
+    if(!session)
         return {
             props:{},
-        }
-    }
+        };
+    
 //firebase db
     const stripeOrders = await db
-    .collection('user')
+    .collection('users')
     .doc(session.user.email)
     .collection('orders')
     .orderBy('timestamp','desc')
@@ -69,17 +69,17 @@ const orders= await Promise.all(
       images: order.data().images,
       timestamp: moment(order.data().timestamp.toDate()).unix(),
       items:(
-          await stripe.checkout.sessions.listLineItems(orders.id,{
+          await stripe.checkout.sessions.listLineItems(order.id,{
               limit:100,
           })
       ).data,
       }))
-)
+);
 
 return {
     props: {
         orders,
     }
-}
+    };
 
 }
