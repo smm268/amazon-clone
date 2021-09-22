@@ -40,6 +40,6 @@ export async function getServerSideProps(context){
     props:{
       session,
       products,
-    }
-  }
+    },
+  };
 }

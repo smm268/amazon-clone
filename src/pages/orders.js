@@ -1,7 +1,7 @@
-import {getSession, useSession } from "next-auth/client"
-import Header from "../components/Header"
+import {getSession, useSession } from "next-auth/client";
+import Header from "../components/Header";
 import moment from 'moment';
-import db from '../../firebase'
+import db from '../../firebase';
 import Order from "../components/Order";
 
 function Orders({orders}) {
@@ -54,10 +54,10 @@ export async function getServerSideProps(context){
     
 //firebase db
     const stripeOrders = await db
-    .collection('users')
+    .collection("users")
     .doc(session.user.email)
-    .collection('orders')
-    .orderBy('timestamp','desc')
+    .collection("orders")
+    .orderBy("timestamp","desc")
     .get();
 
 //stripe orders
@@ -79,7 +79,7 @@ const orders= await Promise.all(
 return {
     props: {
         orders,
-    }
+    },
     };
 
 }

@@ -21,7 +21,7 @@ function Success() {
             </div>
             </main>
         </div>
-    )
+    );
 }
 
 export default Success
